@@ -27,10 +27,22 @@ app.use('/uploads', express.static(__dirname + '/uploads/'));
 app.use(express.json()); 
 app.use(cookieParser());
 
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    'https://chat-app-cyan-iota.vercel.app'
+  ];
 
 app.use(cors({
-    credentials: true,
-    origin: [process.env.CLIENT_URL, "https://chat-app-cyan-iota.vercel.app"],
+  credentials: true,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 
