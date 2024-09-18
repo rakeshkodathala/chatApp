@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserContextProvider } from "./UserContext";
 
 function App() {
-  axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.baseURL = import.meta.env.VITE_BACK_END_URL;
   axios.defaults.withCredentials = true;
 
   return (
