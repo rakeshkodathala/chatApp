@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: [process.env.CLIENT_URL, "https://chat-app-cyan-iota.vercel.app"],
 }));
 
 
@@ -130,7 +130,7 @@ app.post('/register', async (req, res) => {
 
 //zzWlIZ81d7fdBtSH
 
-const server = app.listen(4000);
+const server = app.listen(app.listen(process.env.PORT, () => console.log(`Server running on ${process.env.PORT} PORT`)));
 
 const wss = new ws.WebSocketServer({server});
 wss.on('connection', (connection, req) => {
